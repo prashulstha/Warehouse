@@ -5,6 +5,7 @@ import java.io.*;
 class Tester{
 
     public static void main(String[] args) {
+
         System.out.println("This is a tester for Product and ProductList Class.");
         ProductList productList = ProductList.instance();
 
@@ -24,6 +25,7 @@ class Tester{
         productList.addProduct(product1);
         productList.addProduct(product2);
 
+        //Calling the getProductList that returns Iterator
         System.out.println("Getting the Iterator for the List of Product. ");
         Iterator pList = productList.getProductList();
 
