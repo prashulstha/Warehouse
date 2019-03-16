@@ -11,7 +11,7 @@ class TestStage1 {
 
         Product product1 = new Product("Google Pixel", 534);
         Product product2 = new Product("Apple X", 535);
-
+/*
         // Manufacturer manufacturer1 = new Manufacturer("Google LLC", 66);
         // Manufacturer manufacturer2 = new Manufacturer("Apple LLC", 98);
 
@@ -49,7 +49,7 @@ class TestStage1 {
 
         System.out.println("Manufacturer 1 Name: " + manufacturer1.getManufacturerName());
         System.out.println("Manufacturer 1 ID: " + manufacturer1.getManufacturerID());
-
+*/
         System.out.println("Getting All Offers: ");
         Iterator offerList = warehouse.getOffers();
         Product newProduct;
