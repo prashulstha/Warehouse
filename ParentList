@@ -1,0 +1,22 @@
+import java.io.*;
+
+public class TransactionList {
+	private static LinkedList<Transaction> transactions = new LinkedList<Transaction>();
+	private static TransactionList trList;
+
+
+	public static TransactionList instance() {
+        if (trList == null) {
+            return (trList = new TransactionList());
+        } else
+            return trList;
+    }
+
+    public Iterator getManufacturerList() {
+        return transactions.iterator();
+    }
+
+    public String toString() {
+        return transactions.toString();
+    }
+}

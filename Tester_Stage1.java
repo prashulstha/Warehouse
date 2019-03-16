@@ -12,16 +12,16 @@ class TestStage1 {
         Product product1 = new Product("Google Pixel", 534);
         Product product2 = new Product("Apple X", 535);
 
-        Manufacturer manufacturer1 = new Manufacturer("Google LLC", 66);
-        Manufacturer manufacturer2 = new Manufacturer("Apple LLC", 98);
+        // Manufacturer manufacturer1 = new Manufacturer("Google LLC", 66);
+        // Manufacturer manufacturer2 = new Manufacturer("Apple LLC", 98);
 
         System.out.println("Adding all Products to the ProductList: ");
         warehouse.addProduct("Google Pixel", 534);
         warehouse.addProduct("Apple X", 535);
 
         System.out.println("Adding all Manufacturers to the ProductList: ");
-        warehouse.addMannufacturer("Google LLC", 66);
-        warehouse.addMannufacturer("Apple LLC", 98);
+        // warehouse.addMannufacturer("Google LLC", 66);
+        // warehouse.addMannufacturer("Apple LLC", 98);
 
         System.out.println("Creating Offer for Product 1");
         Offer offer1 = new Offer(599.99, product1.getID(), manufacturer1.getManufacturerID());

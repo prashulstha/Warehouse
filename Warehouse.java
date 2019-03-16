@@ -107,6 +107,28 @@ public class Warehouse implements Serializable {
         return null;
     }
 
+    public void removeOffer (Product product, Manufacturer manufacturer, Offer offer) {
+		product.deleteOffer(offer);
+		manufacturer.deleteOffer(offer);
+	}
+	
+	public Offer searchOffer(int pid, int mid) {
+		Product p = productList.searchProduct(pid);
+		if (p != null) {
+			Offer o = p.getOffer(mid);
+			return o;
+		}
+		else 
+			return null;
+    }
+    public Iterator getSupplies(Manufacturer manufacturer) {
+		return manufacturer.getOffers();
+	}
+	
+	public Iterator getSuppliers(Product p) {
+		return p.getOffers();
+	}
+
     public String toString() {
         return productList + "\n" + manufacturerList + "\n" + clientList;
       }

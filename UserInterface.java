@@ -151,12 +151,12 @@ public class UserInterface implements Serializable {
 		if (p != null) { // we found it
 
 			id = getNumber("Enter manufacturer ID ");
-			Manufacturer m = warehouse.searchManuList(id);
+			Manufacturer m = warehouse.searchManufacturer(id);
 			if (m != null) {
-				Offer o = warehouse.searchOffer(p.getID(), m.getId());
+				Offer o = warehouse.searchOffer(p.getID(), m.getManufacturerID());
 				if (o == null) {
 					double price = getDouble("Enter the offer's price");
-					Offer offer = warehouse.addOffer(p, m, price);
+					Offer offer = warehouse.addOffer(price, p.getID(), m.getManufacturerID());
 					System.out.println(offer.toString());
 				} else
 					System.out.println("Offer for product from manufacturer already exists");
@@ -172,9 +172,9 @@ public class UserInterface implements Serializable {
 		if (p != null) { // we found it
 
 			id = getNumber("Enter manufacturer ID ");
-			Manufacturer m = warehouse.searchManuList(id);
+			Manufacturer m = warehouse.searchManufacturer(id);
 			if (m != null) {
-				Offer offer = warehouse.searchOffer(p.getID(), m.getId());
+				Offer offer = warehouse.searchOffer(p.getID(), m.getManufacturerID());
 				if (offer != null) {
 					warehouse.removeOffer(p, m, offer);
 					System.out.println("Offer has been unassigned");
@@ -186,7 +186,7 @@ public class UserInterface implements Serializable {
 	}
 
 	public void showManufacturers() {
-		Iterator allMaufacturers = warehouse.getManufacturers();
+		Iterator allMaufacturers = warehouse.getManufacterers();
 		while (allMaufacturers.hasNext()) {
 			Manufacturer manufacturer = (Manufacturer) (allMaufacturers.next());
 			System.out.println(manufacturer.toString());
@@ -214,7 +214,7 @@ public class UserInterface implements Serializable {
 		id = getNumber("Please enter product Id: ");
 		Product p = warehouse.searchProduct(id);
 		if (p != null) {
-			Iterator allOffers = warehouse.getManufacturers(p);
+			Iterator allOffers = warehouse.getSuppliers(p);
 			while (allOffers.hasNext()) {
 				Offer offer = (Offer)(allOffers.next());
 				System.out.println(offer.toString());
@@ -225,7 +225,7 @@ public class UserInterface implements Serializable {
 	}
 	
 	public void showSupplies() {
-		Iterator allMaufacturers = warehouse.getManufacturers();
+		Iterator allMaufacturers = warehouse.getManufacterers();
 		while (allMaufacturers.hasNext()) {
 			Manufacturer manufacturer = (Manufacturer)(allMaufacturers.next());
 			Iterator allOffers = manufacturer.getOffers();

@@ -10,9 +10,10 @@ class Order{
     private int manufacturerID;
     private int  Quantity;
     private int transactionID;
-
+    private OrderIdServer orderIDServer;
    private Order(int oId, int cId, int pId, int mId, int qu, int tras) {
-       this.orderID = oId;
+
+       this.orderID =  orderIDServer.instance().getId();
        this.clientID = cId;
        this.productID = pId;
        this.manufacturerID = mId;

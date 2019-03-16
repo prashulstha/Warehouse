@@ -28,33 +28,20 @@ public class ProductList implements Serializable{
     public Iterator getProductList(){
         return products.iterator();
     }
-
-    /*private void writeObject(java.io.ObjectOutputStream output) {
-        try {
-          output.defaultWriteObject();
-          output.writeObject(productList);
-        } catch(IOException ioe) {
-          System.out.println(ioe);
+  //returns null if the product id is not in the list
+  public Product searchProduct(int id){
+    if(products.isEmpty())
+        return null;
+    else {
+        Iterator iter = productList.getProductList();
+        while(iter.hasNext()) {
+            Product p = (Product) iter.next();
+            if (p.getID() == id)
+                return p;
         }
-      }
-      private void readObject(java.io.ObjectInputStream input) {
-        try {
-          if (productList != null) {
-            return;
-          } else {
-            input.defaultReadObject();
-            if (productList == null) {
-              productList = (productList) input.readObject();
-            } else {
-              input.readObject();
-            }
-          }
-        } catch(IOException ioe) {
-          System.out.println("in Catalog readObject \n" + ioe);
-        } catch(ClassNotFoundException cnfe) {
-          cnfe.printStackTrace();
-        }
-      }*/
+    }
+    return null;
+}
 
     public String toString(){
         return products.toString();
