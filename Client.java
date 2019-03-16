@@ -6,10 +6,12 @@ public class Client{
 
     String ClientName;
     int ClientID;
+    float Balance;
 
-    Client(String name, int ID){
+    Client(String name, int ID, float bal){
         ClientName = name;
         ClientID = ID;
+        Balance = bal;
     }
 
     String getClientName(){
@@ -20,7 +22,10 @@ public class Client{
         return ClientID;
     }
 
+    float getBalance(){
+        return Balance;
+    }
     public String toString() {
-        return "Client Name: " + ClientName + "\nClient ID: " + ClientID;
+        return "Client Name: " + ClientName + "\nClient ID: " + ClientID + "\nClient Balance: " + Balance;
       }
 }

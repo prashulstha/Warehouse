@@ -8,7 +8,7 @@
             "type": "java",
             "name": "Debug (Launch) - Current File",
             "request": "launch",
-            "mainClass": "C:\\Users\\prash\\Desktop\\Prashul Spring 2019\\CSCI 430\\Warehouse_CSCI430_Code\\Warehouse\\tester.java"
+            "mainClass": "TestStage1"
         },
         {
             "type": "java",

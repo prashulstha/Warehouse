@@ -33,16 +33,16 @@ public class Warehouse implements Serializable {
         return null;
     }
 
-    public Manufacturer addMannufacturer(String name, int id) {
-        Manufacturer manufacturer = new Manufacturer(name, id);
+    public Manufacturer addMannufacturer(String name) {
+        Manufacturer manufacturer = new Manufacturer(name);
         if (manufacturerList.addManufacturer(manufacturer)) {
             return (manufacturer);
         }
         return null;
     }
 
-    public Client addClient(String name, int id) {
-        Client client = new Client(name, id);
+    public Client addClient(String name, int id, float bal) {
+        Client client = new Client(name, id, bal);
         if (clientList.addClient(client)) {
           return (client);
         }
@@ -110,4 +110,58 @@ public class Warehouse implements Serializable {
     public String toString() {
         return productList + "\n" + manufacturerList + "\n" + clientList;
       }
+
+      public static Warehouse retrieve() {
+		try {
+			FileInputStream file = new FileInputStream("WarehouseData");
+			ObjectInputStream input = new ObjectInputStream(file);
+			input.readObject();
+			ManufacturerIdServer.retrieve(input);
+			return warehouse;
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+			return null;
+		} catch (ClassNotFoundException cnfe) {
+			cnfe.printStackTrace();
+			return null;
+		}
+	}
+
+	public static boolean save() {
+		try {
+			FileOutputStream file = new FileOutputStream("WarehouseData");
+			ObjectOutputStream output = new ObjectOutputStream(file);
+			output.writeObject(warehouse);
+			output.writeObject(ManufacturerIdServer.instance());
+			return true;
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+			return false;
+		}
+	}
+
+	private void writeObject(java.io.ObjectOutputStream output) {
+		try {
+			output.defaultWriteObject();
+			output.writeObject(warehouse);
+		} catch (IOException ioe) {
+			System.out.println(ioe);
+		}
+	}
+
+	private void readObject(java.io.ObjectInputStream input) {
+		try {
+			input.defaultReadObject();
+			if (warehouse == null) {
+				warehouse = (Warehouse) input.readObject();
+			} else {
+				input.readObject();
+			}
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 }

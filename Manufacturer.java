@@ -7,9 +7,9 @@ public class Manufacturer{
     String ManufacturerName;
     int ManufacturerID;
 
-    Manufacturer(String name, int ID){
+    public Manufacturer(String name){
         ManufacturerName = name;
-        ManufacturerID = ID;
+
     }
 
     String getManufacturerName(){
