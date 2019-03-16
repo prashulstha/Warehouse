@@ -20,6 +20,7 @@ class WaitlistedOrder{
         waitlistQuantity = q;
 
     }
+
     public int getWiatlistQuanitity(){
         return waitlistQuantity;
     }

@@ -11,9 +11,11 @@ class Order{
     private int  Quantity;
     private int transactionID;
     private OrderIdServer orderIDServer;
+
+
    private Order(int oId, int cId, int pId, int mId, int qu, int tras) {
 
-       this.orderID =  orderIDServer.instance().getId();
+       this.orderID =  (OrderIdServer.instance().getId());
        this.clientID = cId;
        this.productID = pId;
        this.manufacturerID = mId;
