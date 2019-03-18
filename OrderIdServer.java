@@ -7,7 +7,8 @@ class OrderIdServer implements Serializable{
 
     private OrderIdServer(){
         idCounter = 1;
-    }
+	}
+	
     public static OrderIdServer instance(){
         if(orderServer == null){
             return (orderServer = new OrderIdServer());
@@ -16,7 +17,6 @@ class OrderIdServer implements Serializable{
         else 
           return orderServer;
     }
-
     
 	public int getId() {
 		return idCounter++;
@@ -37,6 +37,7 @@ class OrderIdServer implements Serializable{
 			cnfe.printStackTrace();
 		}
 	}
+
 	private void writeObject(java.io.ObjectOutputStream output) throws IOException {
 		try {
 			output.defaultWriteObject();
@@ -46,6 +47,7 @@ class OrderIdServer implements Serializable{
 			ioe.printStackTrace();
 		}
 	}
+	
 	private void readObject(java.io.ObjectInputStream input) throws IOException, ClassNotFoundException {
 		try {
 			input.defaultReadObject();

@@ -1,6 +1,4 @@
 import java.util.*;
-import java.lang.*;
-import java.io.*;
 
 public class TransactionList extends ParentList {
 
@@ -14,17 +12,31 @@ public class TransactionList extends ParentList {
 			return trList;
 	}
 
-	public LinkedList<Client> filterListByClient(int cID) {
-		LinkedList<Client> cLL = new LinkedList<Client>();
+	/// returns a list of transactions that have the specified client ID
+	public LinkedList<Transaction> filterListByClient(int cID) {
+		LinkedList<Transaction> cLL = new LinkedList<Transaction>();
 		Iterator<Thing> iter = trList.getList();
-		Client c;
+		Transaction t;
 		while (iter.hasNext()) {
-			c = (Client) iter.next();
-			if (c.ClientID == cID) {
-				cLL.add(c);
+			t = (Transaction) iter.next();
+			if (t.getClientID() == cID) {
+				cLL.add(t);
 			}
 		}
-
 		return cLL;
+	}
+
+	/// returns the transaction if found
+	/// returns null if not found
+	public Transaction searchTransaction(int tID) {
+		Iterator<Thing> iter = trList.getList();
+		Transaction t;
+		while (iter.hasNext()) {
+			t = (Transaction) iter.next();
+			if (t.getID() == tID) {
+				return t;
+			}
+		}
+		return null;
 	}
 }
