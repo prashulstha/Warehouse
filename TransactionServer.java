@@ -1,6 +1,7 @@
 import java.io.*;
+
 public class TransactionServer implements Serializable {
-	private  int idCounter;
+	private int idCounter;
 	private static TransactionServer server;
 
 	private TransactionServer() {
@@ -10,8 +11,7 @@ public class TransactionServer implements Serializable {
 	public static TransactionServer instance() {
 		if (server == null) {
 			return (server = new TransactionServer());
-		}
-		else {
+		} else {
 			return server;
 		}
 	}
@@ -27,34 +27,31 @@ public class TransactionServer implements Serializable {
 	public static void retrieve(ObjectInputStream input) {
 		try {
 			server = (TransactionServer) input.readObject();
-		}
-		catch(IOException ioe) {
+		} catch (IOException ioe) {
 			ioe.printStackTrace();
-		}
-		catch(Exception cnfe) {
+		} catch (Exception cnfe) {
 			cnfe.printStackTrace();
 		}
 	}
+
 	private void writeObject(java.io.ObjectOutputStream output) throws IOException {
 		try {
 			output.defaultWriteObject();
 			output.writeObject(server);
-		}
-		catch(IOException ioe) {
+		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
 	}
+
 	private void readObject(java.io.ObjectInputStream input) throws IOException, ClassNotFoundException {
 		try {
 			input.defaultReadObject();
 			if (server == null) {
 				server = (TransactionServer) input.readObject();
-			}
-			else {
+			} else {
 				input.readObject();
 			}
-		}
-		catch(IOException ioe) {
+		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
 	}

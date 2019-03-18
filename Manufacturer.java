@@ -2,7 +2,7 @@ import java.util.*;
 import java.lang.*;
 import java.io.*;
 
-public class Manufacturer implements Serializable {
+public class Manufacturer extends Thing {
 
     private static final long serialVersionUID = 1L;
 
@@ -10,33 +10,33 @@ public class Manufacturer implements Serializable {
     int ManufacturerID;
     private List offerList = new LinkedList<Offer>();
 
-
-    public Manufacturer(String name){
+    public Manufacturer(String name) {
         ManufacturerName = name;
         ManufacturerID = (ManufacturerIdServer.instance()).getId();
     }
 
-    String getManufacturerName(){
+    String getManufacturerName() {
         return ManufacturerName;
     }
 
-    int getManufacturerID(){
+    int getManufacturerID() {
         return ManufacturerID;
     }
 
     public String toString() {
         return "Manufacturer Name: " + ManufacturerName + "\nManufacturer ID: " + ManufacturerID;
-      }
-      public boolean addOffer(Offer offer) {
+    }
+
+    public boolean addOffer(Offer offer) {
         offerList.add(offer);
         return true;
     }
-	
-	public void deleteOffer(Offer o) {
+
+    public void deleteOffer(Offer o) {
         offerList.remove(o);
     }
-	
-	public Iterator getOffers() {
-		return offerList.iterator();
-	}
+
+    public Iterator getOffers() {
+        return offerList.iterator();
+    }
 }

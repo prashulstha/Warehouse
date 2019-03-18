@@ -1,6 +1,4 @@
 import java.util.*;
-import java.lang.*;
-import java.io.*;
 
 public class ClientList extends ParentList {
 
@@ -8,7 +6,6 @@ public class ClientList extends ParentList {
     private static ClientList clientList;
 
     private ClientList() {
-
     }
 
     public static ClientList instance() {
@@ -18,18 +15,9 @@ public class ClientList extends ParentList {
             return clientList;
     }
 
-    public boolean addClient(Client client) {
-        list.add(client);
-        return true;
-    }
-
-    public Iterator getClientList() {
-        return list.iterator();
-    }
-
     public Client searchClient(int clientID) {
 
-        Iterator allClients = clientList.getClientList();
+        Iterator allClients = clientList.getList();
 
         while (allClients.hasNext()) {
             Client newClient = (Client) allClients.next();
@@ -37,13 +25,8 @@ public class ClientList extends ParentList {
 
             if (checkID == clientID)
                 return newClient;
-
         }
         return null;
 
-    }
-
-    public String toString() {
-        return list.toString();
     }
 }

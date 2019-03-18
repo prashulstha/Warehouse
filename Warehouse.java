@@ -9,6 +9,8 @@ public class Warehouse implements Serializable {
   private ClientList clientList;
   private OfferList offerList;
   private static Warehouse warehouse;
+  private TransactionList trList;
+  private WaitListedOrderList wlol;
 
   private Warehouse() {
     productList = ProductList.instance();
@@ -36,7 +38,7 @@ public class Warehouse implements Serializable {
 
   public Manufacturer addMannufacturer(String name) {
     Manufacturer manufacturer = new Manufacturer(name);
-    if (manufacturerList.addManufacturer(manufacturer)) {
+    if (manufacturerList.add(manufacturer)) {
       return (manufacturer);
     }
     return null;
@@ -44,7 +46,7 @@ public class Warehouse implements Serializable {
 
   public Client addClient(String name, int id, float bal) {
     Client client = new Client(name, id, bal);
-    if (clientList.addClient(client)) {
+    if (clientList.add(client)) {
       return (client);
     }
     return null;
@@ -52,7 +54,7 @@ public class Warehouse implements Serializable {
 
   public Offer addOffer(double price, int pID, int mId) {
     Offer offer = new Offer(price, pID, mId);
-    if (offerList.addOffers(offer)) {
+    if (offerList.add(offer)) {
       return (offer);
     }
     return null;
@@ -63,15 +65,15 @@ public class Warehouse implements Serializable {
   }
 
   public Iterator<Thing> getManufacterers() {
-    return manufacturerList.getManufacturerList();
+    return manufacturerList.getList();
   }
 
   public Iterator<Thing> getClients() {
-    return clientList.getClientList();
+    return clientList.getList();
   }
 
   public Iterator getOffers() {
-    return offerList.getOfferList();
+    return offerList.getList();
   }
 
   public Product searchProduct(int pID) {
@@ -90,7 +92,7 @@ public class Warehouse implements Serializable {
 
   public Manufacturer searchManufacturer(int manufacturerID) {
 
-    Iterator allManufacturer = manufacturerList.getManufacturerList();
+    Iterator allManufacturer = manufacturerList.getList();
 
     while (allManufacturer.hasNext()) {
       Manufacturer newManufacturer = (Manufacturer) allManufacturer.next();

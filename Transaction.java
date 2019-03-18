@@ -2,7 +2,8 @@ import java.util.*;
 import java.lang.*;
 import java.io.*;
 
-public class Transaction {
+public class Transaction extends Thing {
+	private static final long serialVersionUID = 1530053204090450305L;
 	private int transactionID;
 	private int clientID;
 	private double balance;
