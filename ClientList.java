@@ -2,10 +2,9 @@ import java.util.*;
 import java.lang.*;
 import java.io.*;
 
-public class ClientList implements Serializable {
+public class ClientList extends ParentList {
 
     private static final long serialVersionUID = 1L;
-    private List clients = new LinkedList();
     private static ClientList clientList;
 
     private ClientList() {
@@ -20,12 +19,12 @@ public class ClientList implements Serializable {
     }
 
     public boolean addClient(Client client) {
-        clients.add(client);
+        list.add(client);
         return true;
     }
 
     public Iterator getClientList() {
-        return clients.iterator();
+        return list.iterator();
     }
 
     public Client searchClient(int clientID) {
@@ -45,6 +44,6 @@ public class ClientList implements Serializable {
     }
 
     public String toString() {
-        return clients.toString();
+        return list.toString();
     }
 }

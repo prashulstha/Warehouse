@@ -2,11 +2,11 @@ import java.util.*;
 import java.lang.*;
 import java.io.*;
 
-public class Product {
+public class Product extends Thing {
 
     private String ProductName;
     private int ProductID;
-    private List offerList = new LinkedList<Offer>();
+    private LinkedList<Offer> offerList = new LinkedList<Offer>();
 
     Product(String name, int ID) {
         ProductName = name;
@@ -22,11 +22,11 @@ public class Product {
     }
 
     public Offer getOffer(int mid) {
-		if(offerList.isEmpty())
+        if (offerList.isEmpty())
             return null;
         else {
             ListIterator<Offer> iter = offerList.listIterator();
-            while(iter.hasNext()) {
+            while (iter.hasNext()) {
                 Offer o = iter.next();
                 if (o.getManuID() == mid)
                     return o;
@@ -34,13 +34,14 @@ public class Product {
         }
         return null;
     }
+
     public void deleteOffer(Offer o) {
         offerList.remove(o);
     }
-	
-	public Iterator getOffers() {
-		return offerList.iterator();
-	}
+
+    public Iterator<Offer> getOffers() {
+        return offerList.iterator();
+    }
 
     public String toString() {
         return "Product Name: " + ProductName + "\nProduct ID: " + ProductID;

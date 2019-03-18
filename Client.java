@@ -2,7 +2,7 @@ import java.util.*;
 import java.lang.*;
 import java.io.*;
 
-public class Client {
+public class Client extends Thing {
 
     String ClientName;
     int ClientID;
