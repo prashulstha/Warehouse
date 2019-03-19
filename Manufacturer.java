@@ -16,7 +16,9 @@ public class Manufacturer extends Thing {
     }
 
     String getManufacturerName() {
-        return ManufacturerName;
+        if (ManufacturerName != null)
+            return ManufacturerName;
+        return "NULL";
     }
 
     int getManufacturerID() {
