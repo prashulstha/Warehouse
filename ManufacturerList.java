@@ -2,10 +2,8 @@ import java.util.*;
 import java.lang.*;
 import java.io.*;
 
-public class ManufacturerList implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-    private LinkedList<Manufacturer> manufacturers = new LinkedList<Manufacturer>();
+public class ManufacturerList extends ParentList {
+    
     private static ManufacturerList manufacturerList;
 
     private ManufacturerList() {
@@ -17,18 +15,5 @@ public class ManufacturerList implements Serializable {
             return (manufacturerList = new ManufacturerList());
         } else
             return manufacturerList;
-    }
-
-    public boolean addManufacturer(Manufacturer manufacturer) {
-        manufacturers.add(manufacturer);
-        return true;
-    }
-
-    public Iterator getManufacturerList() {
-        return manufacturers.iterator();
-    }
-
-    public String toString() {
-        return manufacturers.toString();
     }
 }

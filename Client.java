@@ -2,12 +2,11 @@ import java.util.*;
 import java.lang.*;
 import java.io.*;
 
-public class Client {
+public class Client extends Thing {
 
     String ClientName;
     int ClientID;
     float Balance;
-    private static LinkedList<Transaction> transactions = new LinkedList<Transaction>();
 
     Client(String name, int ID, float bal) {
         ClientName = name;
@@ -25,17 +24,6 @@ public class Client {
 
     float getBalance() {
         return Balance;
-    }
-
-    boolean addTransaction(Transaction trans) {
-        transactions.add(trans);
-        return true;
-    }
-
-    
-
-    Iterator getClientTransactions() {
-        return transactions.iterator();
     }
 
     public String toString() {

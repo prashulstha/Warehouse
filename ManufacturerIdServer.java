@@ -1,6 +1,8 @@
 import java.io.*;
 public class ManufacturerIdServer implements Serializable {
-	private  int idCounter;
+	
+	private static final long serialVersionUID = 1L;
+	private int idCounter;
 	private static ManufacturerIdServer server;
 
 	private ManufacturerIdServer() {

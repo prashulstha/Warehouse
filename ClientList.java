@@ -1,15 +1,11 @@
 import java.util.*;
-import java.lang.*;
-import java.io.*;
 
-public class ClientList implements Serializable {
+public class ClientList extends ParentList {
 
     private static final long serialVersionUID = 1L;
-    private List clients = new LinkedList();
     private static ClientList clientList;
 
     private ClientList() {
-
     }
 
     public static ClientList instance() {
@@ -19,18 +15,9 @@ public class ClientList implements Serializable {
             return clientList;
     }
 
-    public boolean addClient(Client client) {
-        clients.add(client);
-        return true;
-    }
-
-    public Iterator getClientList() {
-        return clients.iterator();
-    }
-
     public Client searchClient(int clientID) {
 
-        Iterator allClients = clientList.getClientList();
+        Iterator allClients = clientList.getList();
 
         while (allClients.hasNext()) {
             Client newClient = (Client) allClients.next();
@@ -38,13 +25,8 @@ public class ClientList implements Serializable {
 
             if (checkID == clientID)
                 return newClient;
-
         }
         return null;
 
-    }
-
-    public String toString() {
-        return clients.toString();
     }
 }

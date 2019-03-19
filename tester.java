@@ -22,12 +22,12 @@ class Tester{
 
         //Adding all Dummy Objects to the List
         System.out.println("Adding all Products to the ProductList: ");
-        productList.addProduct(product1);
-        productList.addProduct(product2);
+        productList.add(product1);
+        productList.add(product2);
 
         //Calling the getProductList that returns Iterator
         System.out.println("Getting the Iterator for the List of Product. ");
-        Iterator pList = productList.getProductList();
+        Iterator pList = productList.getList();
 
         System.out.println("Printing the List of Product from Iterator. ");
 

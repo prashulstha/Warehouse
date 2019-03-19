@@ -2,33 +2,33 @@ import java.util.*;
 import java.text.*;
 import java.io.*;
 
-public class Offer{
+public class Offer extends Thing {
 
     double Price;
     int productID;
     int manufacturerID;
 
-
-    public Offer (double price, int pID, int mID){
+    public Offer(double price, int pID, int mID) {
         Price = price;
         productID = pID;
         manufacturerID = mID;
 
     }
 
-    public double getPrice(){
+    public double getPrice() {
         return Price;
     }
 
-    public int getProductID(){
+    public int getProductID() {
         return productID;
     }
 
-    public int getManuID(){
+    public int getManuID() {
         return manufacturerID;
     }
 
-    public String toString(){
-        return "Offer Price: " + Price  + "\nOffer Product ID: " + productID + "\nOffer Manufacturer ID: "+ manufacturerID;
+    public String toString() {
+        return "Offer Price: " + Price + "\nOffer Product ID: " + productID + "\nOffer Manufacturer ID: "
+                + manufacturerID;
     }
 }

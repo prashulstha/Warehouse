@@ -11,9 +11,15 @@ class TestStage1 {
 
         Product product1 = new Product("Google Pixel", 534);
         Product product2 = new Product("Apple X", 535);
+<<<<<<< HEAD
 /*
         // Manufacturer manufacturer1 = new Manufacturer("Google LLC", 66);
         // Manufacturer manufacturer2 = new Manufacturer("Apple LLC", 98);
+=======
+
+        Manufacturer manufacturer1 = new Manufacturer("Google LLC");
+        Manufacturer manufacturer2 = new Manufacturer("Apple LLC");
+>>>>>>> 4148fcf451a4c6386d4402320c1c821c8c626438
 
         System.out.println("Adding all Products to the ProductList: ");
         warehouse.addProduct("Google Pixel", 534);
@@ -57,14 +63,14 @@ class TestStage1 {
             while (offerList.hasNext()) {
                 Offer newOffer = (Offer) (offerList.next());
                 int searchProductID = newOffer.getProductID();
-                
-                newProduct = ( warehouse.searchProduct(searchProductID));
+
+                newProduct = (warehouse.searchProduct(searchProductID));
                 Manufacturer newManufacturer = (Manufacturer) warehouse.searchManufacturer(newOffer.manufacturerID);
 
                 if (newProduct == null) {
                     System.out.println("Sorry no Product Found!");
 
-                } else {                    
+                } else {
                     System.out.println("Offer for Product: " + searchProductID);
                     System.out.println("Offer Price: " + newOffer.Price);
                     System.out.println("Offer Product ID: " + newProduct.getID());
