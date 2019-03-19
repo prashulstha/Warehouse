@@ -11,9 +11,15 @@ class TestStage1 {
 
         Product product1 = new Product("Google Pixel", 534);
         Product product2 = new Product("Apple X", 535);
+<<<<<<< HEAD
+/*
+        // Manufacturer manufacturer1 = new Manufacturer("Google LLC", 66);
+        // Manufacturer manufacturer2 = new Manufacturer("Apple LLC", 98);
+=======
 
         Manufacturer manufacturer1 = new Manufacturer("Google LLC");
         Manufacturer manufacturer2 = new Manufacturer("Apple LLC");
+>>>>>>> 4148fcf451a4c6386d4402320c1c821c8c626438
 
         System.out.println("Adding all Products to the ProductList: ");
         warehouse.addProduct("Google Pixel", 534);
@@ -49,7 +55,7 @@ class TestStage1 {
 
         System.out.println("Manufacturer 1 Name: " + manufacturer1.getManufacturerName());
         System.out.println("Manufacturer 1 ID: " + manufacturer1.getManufacturerID());
-
+*/
         System.out.println("Getting All Offers: ");
         Iterator offerList = warehouse.getOffers();
         Product newProduct;
