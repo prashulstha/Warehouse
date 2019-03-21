@@ -68,7 +68,6 @@ class TestStage1 {
 
                 if (newProduct == null) {
                     System.out.println("Sorry no Product Found!");
-
                 } else {
                     System.out.println("Offer for Product: " + searchProductID);
                     System.out.println("Offer Price: " + newOffer.Price);
@@ -76,7 +75,6 @@ class TestStage1 {
                     System.out.println("Offer Product Name: " + newProduct.getName());
                     System.out.println("Offer Manufacturer ID: " + newOffer.manufacturerID);
                     System.out.println("Offer Manufacturer Name: " + newManufacturer.getManufacturerName());
-
                 }
             }
         } else

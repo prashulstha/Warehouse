@@ -1,7 +1,3 @@
-import java.util.*;
-import java.lang.*;
-import java.io.*;
-
 public class Transaction extends Thing {
 	private static final long serialVersionUID = 1530053204090450305L;
 	private int transactionID;
@@ -18,8 +14,16 @@ public class Transaction extends Thing {
 		return balance;
 	}
 
+	public int getClientID() {
+		return clientID;
+	}
+
 	public void setBalance(double amount) {
 		this.balance = amount;
+	}
+
+	public int getID() {
+		return transactionID;
 	}
 
 	public Transaction instance() {
