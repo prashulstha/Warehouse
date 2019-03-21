@@ -9,8 +9,8 @@ public class Warehouse implements Serializable {
   private ClientList clientList;
   private OfferList offerList;
   private static Warehouse warehouse;
-  private TransactionList trList;
-  private WaitListedOrderList wlol;
+  private TransactionList transactionList;
+  private WaitListedOrderList waitlistedOrderList;
 
   private Warehouse() {
     productList = ProductList.instance();
