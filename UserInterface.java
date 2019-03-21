@@ -350,7 +350,8 @@ public class UserInterface implements Serializable {
 					Order order = (Order) (waitlist.next());
 					System.out.println(order.toString());
 					if (yesOrNo("Fullfill Order, y or n?")) {
-						if (warehouse.fullfillOrder(o, order))
+						boolean result = warehouse.fullfillOrder(o, order);
+						if (result)
 							System.out.println("Updated inventory: " + o.getQuantity());
 						else
 							System.out.println("Unable to fill order");

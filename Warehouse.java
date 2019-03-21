@@ -161,12 +161,14 @@ public class Warehouse implements Serializable {
   }
 
   public Client acceptPayment(Client client, double payment) {
-	  if (client.getBalance() <= payment) {
+	  if (client.getBalance() >= payment) {
 		Transaction transaction = new Transaction(client.getClientID(), 0 - payment);
-		if (client.addTransaction(transaction) && client.updateBalance(payment))
-			return client;
+		client.addTransaction(transaction);
+		client.updateBalance(payment);
+		return client;
 	  }
-	  return null;
+	  else
+		return null;
   }
   
   public int updateQuantity(Offer o, int quantity) {
@@ -175,8 +177,12 @@ public class Warehouse implements Serializable {
   }
   
   public boolean fullfillOrder(Offer offer, Order order) {
-	  if (offer.getQuantity() < order.getQuant()) {
-		  return (offer.deleteWaitlist(order));
+	  if (order.getQuant() <= offer.getQuantity()) {
+		  Client client = getClient(order.getClientID());
+		  offer.deleteWaitlist(order);
+		  client.deleteWaitlist(order);
+		  offer.updateQuantity(0 - order.getQuant());
+		  return true;
 	  }
 	  else 
 		  return false;

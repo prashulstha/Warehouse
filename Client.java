@@ -8,7 +8,7 @@ public class Client extends Thing {
     int ClientID;
     double Balance;
 	private List orderList = new LinkedList<Order>();
-	private List waitList = new LinkedList<WaitlistedOrder>();
+	private LinkedList<Order> waitList = new LinkedList<Order>();
 	private List transList = new LinkedList<Transaction>();
 
     Client(String name, int ID, float bal) {
@@ -35,13 +35,18 @@ public class Client extends Thing {
 	}
 	
 	public boolean addOrder(Order order) {
-		Balance = Balance - (order.getPrice() * order.getQuant());
+		Balance = Balance + (order.getPrice() * order.getQuant());
         orderList.add(order);
         return true;
     }
 	
 	public boolean addWaitlist(Order order) {
 		waitList.add(order);
+		return true;
+	}
+	
+	public boolean deleteWaitlist(Order o) {
+		waitList.remove(o);
 		return true;
 	}
 

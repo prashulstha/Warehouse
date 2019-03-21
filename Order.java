@@ -39,7 +39,7 @@ class Order extends Thing {
 
     public String toString() {
         return "Order ID: " + orderID + "\nClient ID: " + clientID + "\nProduct ID: " + productID
-                + "Quantity: " + Quantity + "Transaction ID: " + transactionID;
+                + "\nQuantity: " + Quantity + "\nTransaction ID: " + transactionID;
 
     }
 }
