@@ -4,15 +4,15 @@ class Order extends Thing {
     private int orderID;
     private int clientID;
     private int productID;
-    private int manufacturerID;
+	private double price;
     private int Quantity;
     private int transactionID;
 
-    private Order(int oId, int cId, int pId, int mId, int qu, int tras) {
+    public Order(int cId, int pId, double price, int qu, int tras) {
         this.orderID = (OrderIdServer.instance().getId());
         this.clientID = cId;
         this.productID = pId;
-        this.manufacturerID = mId;
+        this.price = price;
         this.Quantity = qu;
         this.transactionID = tras;
     }
@@ -20,6 +20,14 @@ class Order extends Thing {
     int getOrderID() {
         return orderID;
     }
+	
+	double getPrice() {
+		return price;
+	}
+	
+	int getQuant() {
+		return Quantity;
+	}
 
     int getClientID() {
         return clientID;
@@ -31,7 +39,7 @@ class Order extends Thing {
 
     public String toString() {
         return "Order ID: " + orderID + "\nClient ID: " + clientID + "\nProduct ID: " + productID
-                + "\nManufacturer ID: " + manufacturerID + "Quantity: " + Quantity + "Transaction ID: " + transactionID;
+                + "Quantity: " + Quantity + "Transaction ID: " + transactionID;
 
     }
 }

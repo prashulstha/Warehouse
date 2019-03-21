@@ -4,8 +4,8 @@ public class Transaction extends Thing {
 	private int clientID;
 	private double balance;
 
-	public Transaction(int tID, int cID, double bal) {
-		this.transactionID = tID;
+	public Transaction(int cID, double bal) {
+		this.transactionID = (TransactionServer.instance().getId());
 		this.clientID = cID;
 		this.balance = bal;
 	}

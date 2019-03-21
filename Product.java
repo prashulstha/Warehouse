@@ -7,6 +7,7 @@ public class Product extends Thing {
     private String ProductName;
     private int ProductID;
     private LinkedList<Offer> offerList = new LinkedList<Offer>();
+	
 
     Product(String name, int ID) {
         ProductName = name;
@@ -34,6 +35,12 @@ public class Product extends Thing {
         }
         return null;
     }
+	
+	
+	public boolean addOffer(Offer o) {
+		offerList.add(o);
+		return true;
+	}
 
     public void deleteOffer(Offer o) {
         offerList.remove(o);

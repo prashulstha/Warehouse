@@ -54,7 +54,9 @@ public class Warehouse implements Serializable {
 
   public Offer addOffer(double price, int pID, int mId) {
     Offer offer = new Offer(price, pID, mId);
-    if (offerList.add(offer)) {
+	Manufacturer manufacturer = searchManufacturer(mId);
+	Product product = searchProduct(pID);
+    if (product.addOffer(offer) && manufacturer.addOffer(offer)) {
       return (offer);
     }
     return null;
@@ -72,8 +74,8 @@ public class Warehouse implements Serializable {
     return clientList.getList();
   }
 
-  public Iterator getOffers() {
-    return offerList.getList();
+  public Iterator getOffers(Product p) {
+    return p.getOffers();
   }
 
   public Product searchProduct(int pID) {
@@ -125,11 +127,61 @@ public class Warehouse implements Serializable {
   public Iterator getSuppliers(Product p) {
     return p.getOffers();
   }
+  
+  public Iterator getProductWaitlist(Offer o) {
+	  return o.getWaitlist();
+  }
+  
+  public Iterator getClientWaitlist(Client c) {
+	  return c.getWaitlist();
+  }
 
   public String toString() {
     return productList + "\n" + manufacturerList + "\n" + clientList;
   }
+  
+  public Client getClient(int cid) {
+	  Client c = clientList.searchClient(cid);
+	  return c;
+  }
+  
+  public Order addOrder(Client c, Offer o, int quant) {
+	  Transaction transaction = new Transaction(c.getClientID(), (o.getPrice() * quant));
+	  Order order = new Order(c.getClientID(), o.getProductID(), o.getPrice(), quant, transaction.getID());
+	  if (o.getQuantity() < quant) {	//adding to waitlists
+		  c.addWaitlist(order);
+		  o.addWaitlist(order);
+	  }
+	  else {	//removing stock from inventory
+		  o.updateQuantity(0 - quant);
+	  }
+	  if (c.addOrder(order) && c.addTransaction(transaction))
+		return order;
+	return null;
+  }
 
+  public Client acceptPayment(Client client, double payment) {
+	  if (client.getBalance() <= payment) {
+		Transaction transaction = new Transaction(client.getClientID(), 0 - payment);
+		if (client.addTransaction(transaction) && client.updateBalance(payment))
+			return client;
+	  }
+	  return null;
+  }
+  
+  public int updateQuantity(Offer o, int quantity) {
+	  int newquant = o.updateQuantity(quantity);
+	  return newquant;
+  }
+  
+  public boolean fullfillOrder(Offer offer, Order order) {
+	  if (offer.getQuantity() < order.getQuant()) {
+		  return (offer.deleteWaitlist(order));
+	  }
+	  else 
+		  return false;
+  }
+  
   public static Warehouse retrieve() {
     try {
       FileInputStream file = new FileInputStream("WarehouseData");

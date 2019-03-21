@@ -19,8 +19,14 @@ public class UserInterface implements Serializable {
   private static final int SHOW_PRODUCTS = 8;
   private static final int SHOW_SUPPLIERS = 9;
   private static final int SHOW_SUPPLIES = 10;
-  private static final int SAVE =11;
-  private static final int HELP = 12;
+  private static final int ADD_ORDER = 11;
+  private static final int ACCEPT_PAYMENT = 12;
+  private static final int GET_OUTSTANDING = 13;
+  private static final int GET_WAITLIST_PRODUCT = 14;
+  private static final int GET_WAITLIST_CLIENT = 15;
+  private static final int RECIEVE_SHIPMENT = 16;
+  private static final int SAVE =17;
+  private static final int HELP = 18;
 
   public UserInterface() {
 	  if (yesOrNo("Look for saved data and use it?")) {
@@ -103,6 +109,12 @@ public class UserInterface implements Serializable {
 	  System.out.println(SHOW_PRODUCTS + " to show products based on appropriate fields");
 	  System.out.println(SHOW_SUPPLIERS + " to show suppliers and prices of a part");
 	  System.out.println(SHOW_SUPPLIES + " to show manufacturers and all products they offer");
+	  System.out.println(ADD_ORDER + " to add an order for a client");
+	  System.out.println(ACCEPT_PAYMENT + " to accept a payment from a client");
+	  System.out.println(GET_OUTSTANDING + " to show a list of clients with outstanding balance");
+	  System.out.println(GET_WAITLIST_PRODUCT + " to show a list of waitlisted orders for a product");
+	  System.out.println(GET_WAITLIST_CLIENT + " to show waitlisted orders for a client");
+	  System.out.println(RECIEVE_SHIPMENT +	" to recieve a shipment");
 	  System.out.println(SAVE + " to save the warehouse");
 	  System.out.println(HELP + " for help");
   }
@@ -114,7 +126,7 @@ public class UserInterface implements Serializable {
 	  Client result;
 	  result = warehouse.addClient(name, id, balance);
 	  if (result == null) {
-		System.out.println("Could not add member");
+		System.out.println("Could not add client");
 	  }
 	  System.out.println(result.toString());
   }
@@ -235,6 +247,128 @@ public class UserInterface implements Serializable {
 			}
 		}
 	}
+	
+	public void addOrder() {
+		int id = getNumber("Enter client ID ");
+		int quant;
+		Client client = warehouse.getClient(id);
+		do {
+		id =  getNumber("Enter product ID ");
+		Product p = warehouse.searchProduct(id);
+		if (p != null) { // we found it
+			id = getNumber("Enter manufacturer ID ");
+			Manufacturer m = warehouse.searchManufacturer(id);
+			if (m != null) {
+				Offer o = warehouse.searchOffer(p.getID(), m.getManufacturerID());
+				if (o == null) {
+					System.out.println("Offer not found");
+				} else {
+					quant = getNumber("Please enter quantity ");
+					Order order = warehouse.addOrder(client, o, quant);
+					System.out.println(order.toString());
+				}
+			} else
+				System.out.println("Could not find the manufacturer ID");
+		} else
+			System.out.println("Could not find the product ID");
+		if (!yesOrNo("Add more products to order?")) {
+			break;
+		}
+	  } while (true);
+	}
+		
+	public void acceptPayment() {
+		int id = getNumber("Enter client ID ");
+		Client client = warehouse.getClient(id);
+		if (client != null) 
+		{
+			double payment = getDouble("Enter the payment amount");
+			client = warehouse.acceptPayment(client, payment);
+			if (client != null)
+				System.out.println(client.toString());
+			else 
+				System.out.println("Invalid payment amount");
+		}
+		else
+			System.out.println("Client does not exist");
+	}
+	
+	public void getOutstanding() {
+		Iterator allClients = warehouse.getClients();
+		while (allClients.hasNext()) {
+			Client client = (Client) (allClients.next());
+			if (client.getBalance() != 0)
+				System.out.println(client.toString());
+		}
+	}
+	
+	public void getWaitlistProduct() {
+		int id =  getNumber("Enter product ID ");
+		Product p = warehouse.searchProduct(id);
+		if (p != null) {
+			Iterator offerlist = warehouse.getOffers(p);
+			while (offerlist.hasNext()) {
+				Offer o = (Offer)(offerlist.next());
+				Iterator waitlist = warehouse.getProductWaitlist(o);
+				while (waitlist.hasNext()) {
+					Order order = (Order) (waitlist.next());
+					System.out.println(order.toString());
+				}
+			}
+		}
+		else
+			System.out.println("Invalid product ID");
+	}
+	
+	public void getWaitlistClient() {
+		int id =  getNumber("Enter client ID ");
+		Client c = warehouse.getClient(id);
+		if (c != null ) {
+			Iterator waitlist = warehouse.getClientWaitlist(c);
+			while (waitlist.hasNext()) {
+				Order order = (Order) (waitlist.next());
+				System.out.println(order.toString());
+			}
+		}
+		else
+			System.out.println("Invalid client ID");
+	}
+	
+	public void recieveShipment() {
+		do {
+		int id =  getNumber("Enter product ID ");
+		Product p = warehouse.searchProduct(id);
+		if (p != null) {
+			id =  getNumber("Enter manufacturer ID ");
+			Offer o = warehouse.searchOffer(p.getID(), id);
+			if (o != null) {
+				int quantity =  getNumber("Enter quantity ");
+				quantity = warehouse.updateQuantity(o, quantity);
+				System.out.println("New Quantity: " + quantity);
+				Iterator waitlist = warehouse.getProductWaitlist(o);
+				while (waitlist.hasNext()) {
+					Order order = (Order) (waitlist.next());
+					System.out.println(order.toString());
+					if (yesOrNo("Fullfill Order, y or n?")) {
+						if (warehouse.fullfillOrder(o, order))
+							System.out.println("Updated inventory: " + o.getQuantity());
+						else
+							System.out.println("Unable to fill order");
+					}
+				}
+			}
+			else 
+				System.out.println("Manufacturer does not offer product");
+		}
+		else 
+			System.out.println("Invalid product ID");
+		if (!yesOrNo("More products, y or n?")) {
+			break;
+		}
+	  } while (true);
+  }
+	
+		
 
 	public void save() {
 		if (Warehouse.save()) {
@@ -288,6 +422,18 @@ public class UserInterface implements Serializable {
 				case SHOW_SUPPLIERS:		showSupplied();
 											break;
 				case SHOW_SUPPLIES:			showSupplies();
+											break;
+				case ADD_ORDER:				addOrder();
+											break;
+				case ACCEPT_PAYMENT:		acceptPayment();
+											break;
+				case GET_OUTSTANDING:		getOutstanding();
+											break;
+				case GET_WAITLIST_PRODUCT:   getWaitlistProduct();
+											break;
+				case GET_WAITLIST_CLIENT:	getWaitlistClient();
+											break;
+				case RECIEVE_SHIPMENT: 		recieveShipment();
 											break;
 				case SAVE:					save();
 											break;
